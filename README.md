@@ -1,0 +1,59 @@
+# SSDOT Usage
+
+达成成就：用npm去跑一个Java的项目 lol \(见下\)
+
+## 语法
+
+### 注释
+
+```txt
+/comment_content/
+```
+
+两个`/`之间的内容会被当做注释忽略掉
+
+### 输出字符
+
+```txt
+Hello, world!.
+```
+
+`.` 用于输出前面的所有字符并换行
+
+### 转义
+
+一共有三种特殊字符\(对于三个语法\)
+
+- `.`
+- `\`
+- `/`
+
+```txt
+example\.com.
+```
+
+`\`用于转义下一个字符为普通字符\(包括转义它自己`\\`\)
+
+> [!NOTE]
+> 如果下一个字符不是特殊字符，那转义了跟没转义一样，浪费
+
+### 示例
+
+```txt
+Slash (\/) is a special character, so we need/n't/ to escape it with a backslash (\\) to use it\..The/ first but not the/ second line!.
+```
+
+## 为什么用npm
+
+就一个小项目，没有任何依赖，后面也不会经常更新
+
+### 为什么不用Maven或者Gradle
+
+我平日里很少写Java，但经常写JavaScript，所以npm对我来说更熟悉一些
+
+Maven和Gradle我完全不会，说真的
+
+### 为什么不直接用bash或者ps1文件代替npm run
+
+跑`npm run`的时候，你完全不用担心你现在在哪个目录，
+因为它本来就是跑在项目根目录的，并且跑完又切回来，这样就不会有路径问题了
