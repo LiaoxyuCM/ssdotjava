@@ -1,10 +1,12 @@
-# SSDOT Usage
+# SSDOT
+
+## 用法
 
 达成成就：用npm去跑一个Java的项目 lol \(见下\)
 
-## 语法
+### 语法
 
-### 注释
+#### 注释
 
 ```txt
 /comment_content/
@@ -12,7 +14,7 @@
 
 两个`/`之间的内容会被当做注释忽略掉
 
-### 输出字符
+#### 输出字符
 
 ```txt
 Hello, world!.
@@ -20,7 +22,7 @@ Hello, world!.
 
 `.` 用于输出前面的所有字符并换行
 
-### 转义
+#### 转义
 
 一共有三种特殊字符\(对于三个语法\)
 
@@ -37,11 +39,24 @@ example\.com.
 > [!NOTE]
 > 如果下一个字符不是特殊字符，那转义了跟没转义一样，浪费
 
-### 示例
+#### 示例
 
 ```txt
 Slash (\/) is a special character, so we need/n't/ to escape it with a backslash (\\) to use it\..The/ first but not the/ second line!.
 ```
+
+### 参数
+
+#### keepResidue
+
+```bash
+java -jar ./ssdot-java.jar --keepResidue
+```
+
+可以把上一次运行结果中还没输出出来的字符先存起来，等到下一次输出时再一起输出
+
+> [!NOTE]
+> 如果你退出了这个程序，这些字符照样也会丢失
 
 ## 为什么用npm
 

@@ -1,21 +1,22 @@
 package top.liaoxyucm.ssdotjava;
 
 public class Ssdot {
-  public static String ssdotCompile(String text) {
+  private StringBuilder storedString = new StringBuilder("");
+
+  public String ssdotCompile(String text, boolean keepResidue) {
     StringBuilder result = new StringBuilder("");
-    StringBuilder storedString = new StringBuilder("");
     int status = 0;
     for (char c : text.toCharArray()) {
       if (status == 1) {
-        storedString.append(c);
+        this.storedString.append(c);
         status = 0;
         continue;
       }
       switch (c) {
         case '.':
           if (status == 0) {
-            result.append(storedString.toString() + '\n');
-            storedString.setLength(0);
+            result.append(this.storedString.toString() + '\n');
+            this.storedString.setLength(0);
           }
           break;
 
@@ -35,10 +36,13 @@ public class Ssdot {
 
         default:
           if (status == 0) {
-            storedString.append(c);
+            this.storedString.append(c);
           }
           break;
       }
+    }
+    if (!keepResidue) {
+      this.storedString.setLength(0);
     }
     return result.toString();
   }
