@@ -58,6 +58,16 @@ java -jar ./ssdot-java.jar --keepResidue
 > [!NOTE]
 > 如果你退出了这个程序，这些字符照样也会丢失
 
+### 输入的时机
+
+只要出现这个
+
+```txt
+Press Ctrl/Cmd + C to exit.
+```
+
+你就可以开始输入代码了
+
 ## 为什么用npm
 
 就一个小项目，没有任何依赖，后面也不会经常更新
