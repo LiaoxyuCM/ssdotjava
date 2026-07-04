@@ -51,16 +51,36 @@ Slash (\/) is a special character, so we need/n't/ to escape it with a backslash
 
 ### 参数
 
-#### keepResidue
+#### keepResidue和keepStatus
 
+1. `keepResidue`可以把上一次运行结果中还没输出出来的字符先存起来，等到下一次输出时再一起输出
 ```bash
 java -jar ./ssdot-java.jar --keepResidue
+java -jar ./ssdot-java.jar -kr #简洁
 ```
 
-可以把上一次运行结果中还没输出出来的字符先存起来，等到下一次输出时再一起输出
+2. `keepStatus`可以把上一次运行结果后的状态先存起来，下一次运行时默认就是以这个状态开始运行
+```bash
+java -jar ./ssdot-java.jar --keepStatus
+java -jar ./ssdot-java.jar -ks #简洁
+```
+
+以下是ssdot的状态表
+
+| 状态       | 意义     |
+| ---------- | -------- |
+| 0 \(默认\) | 程序部分 |
+| 1          | 转义     |
+| 2          | 注释     |
 
 > [!NOTE]
-> 如果你退出了这个程序，这些字符照样也会丢失
+> 如果你退出了这个程序，状态和待输出文本照样都会丢失
+
+技巧: 判断是否启用keepResidue或keepStatus，可以**逐行**运行这段代码
+```txt
+Residue kept\. /
+./Status kept\..
+```
 
 ### 输入的时机
 
