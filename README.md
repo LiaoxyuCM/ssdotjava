@@ -1,5 +1,7 @@
 # SSDOT
 
+该文档基于最新版的ssdot
+
 达成成就：用npm去跑一个Java的项目 lol \(见下\)
 
 ## 用法
@@ -76,10 +78,18 @@ java -jar ./ssdot-java.jar -ks #简洁
 > [!NOTE]
 > 如果你退出了这个程序，状态和待输出文本照样都会丢失
 
-技巧: 判断是否启用keepResidue或keepStatus，可以**逐行**运行这段代码
+技巧: 判断是否启用keepResidue或keepStatus，可以**逐行**运行这段代码\(先确保当前状态为`0`\)
 ```txt
 Residue kept\. /
 ./Status kept\..
+```
+
+#### version
+
+查看版本号可以用下面的命令
+```bash
+java -jar ./ssdot-java.jar --version
+java -jar ./ssdot-java.jar -v #简洁
 ```
 
 ### 输入的时机
