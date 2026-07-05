@@ -84,22 +84,28 @@ Residue kept\. /
 ./Status kept\..
 ```
 
+#### trimEnd
+
+```bash
+java -jar ./ssdot-java.jar --trimEnd
+java -jar ./ssdot-java.jar -te #简洁
+```
+这个功能可以将输出结果末尾的所有空格去除掉
+
 #### version
 
-查看版本号可以用下面的命令
 ```bash
 java -jar ./ssdot-java.jar --version
 java -jar ./ssdot-java.jar -v #简洁
 ```
+显示版本号
 
 ### 输入的时机
 
 只要出现这个
-
 ```txt
 Press Ctrl/Cmd + C to exit.
 ```
-
 你就可以开始输入代码了
 
 ## 为什么用npm
