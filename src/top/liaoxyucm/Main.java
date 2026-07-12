@@ -14,12 +14,13 @@ public class Main {
   public static void main(String[] args) {
     List<String> argl = Arrays.asList(args);
     if (cts(argl, "version", "v")) {
-      System.out.println("ssdot v1.3.0");
+      System.out.println("ssdot v1.4.0");
       return;
     }
     boolean keepResidue = cts(argl, "keepResidue", "kr");
     boolean keepStatus = cts(argl, "keepStatus", "ks");
     boolean trimEnd = cts(argl, "trimEnd", "te");
+    boolean verbose = cts(argl, "verbose", "vb");
 
     Scanner scanner = new Scanner(System.in);
     Ssdot ssdotobj = new Ssdot(keepResidue, keepStatus);
@@ -27,6 +28,13 @@ public class Main {
     System.out.println("Press Ctrl/Cmd + C to exit.");
     while (true) {
       try {
+        if (verbose) {
+          System.out.print(String.format(
+            "[%s %s]> ",
+            keepResidue ? String.valueOf(ssdotobj.storedString().length()) : "~",
+            keepStatus ? String.valueOf(ssdotobj.status.code()) : "~"
+          ));
+        }
         String text = scanner.nextLine();
         String result = ssdotobj.ssdotCompile(text);
         if (trimEnd) {

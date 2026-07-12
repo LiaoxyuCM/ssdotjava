@@ -1,10 +1,30 @@
 package top.liaoxyucm.ssdotjava;
 
 public class Ssdot {
-  private boolean keepResidue = false;
-  private boolean keepStatus = false;
+  public enum Status {
+    NORMAL(0),
+    BACKSLASH(1),
+    COMMENT(2);
+
+    private final int code;
+
+    Status(int code) {
+      this.code = code;
+    }
+
+    public int code() {
+      return this.code;
+    }
+  }
+
+  public boolean keepResidue = false;
+  public boolean keepStatus = false;
+  public Status status = Status.NORMAL;
+  
   private StringBuilder storedString = new StringBuilder("");
-  private int status = 0;
+  public String storedString() {
+    return this.storedString.toString();
+  }
 
   public Ssdot() {}
   public Ssdot(boolean keepResidue) {
@@ -19,35 +39,35 @@ public class Ssdot {
   public String ssdotCompile(String text, boolean keepResidue, boolean keepStatus) {
     StringBuilder result = new StringBuilder("");
     for (char c : text.toCharArray()) {
-      if (this.status == 1) {
+      if (this.status == Status.BACKSLASH) {
         this.storedString.append(c);
-        this.status = 0;
+        this.status = Status.NORMAL;
         continue;
       }
       switch (c) {
         case '.':
-          if (this.status == 0) {
+          if (this.status == Status.NORMAL) {
             result.append(this.storedString.toString() + '\n');
             this.storedString.setLength(0);
           }
           break;
 
         case '\\':
-          if (this.status == 0) {
-            this.status = 1;
+          if (this.status == Status.NORMAL) {
+            this.status = Status.BACKSLASH;
           }
           break;
 
         case '/':
-          if (this.status == 0) {
-            this.status = 2;
-          } else if (this.status == 2) {
-            this.status = 0;
+          if (this.status == Status.NORMAL) {
+            this.status = Status.COMMENT;
+          } else if (this.status == Status.COMMENT) {
+            this.status = Status.NORMAL;
           }
           break;
 
         default:
-          if (this.status == 0) {
+          if (this.status == Status.NORMAL) {
             this.storedString.append(c);
           }
           break;
@@ -57,7 +77,7 @@ public class Ssdot {
       this.storedString.setLength(0);
     }
     if (!keepStatus) {
-      this.status = 0;
+      this.status = Status.NORMAL;
     }
 
     return result.toString();
