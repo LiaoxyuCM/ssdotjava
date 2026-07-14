@@ -4,6 +4,14 @@
 
 达成成就：用npm去跑一个Java的项目 lol \(见下\)
 
+## 输入的时机
+
+只要出现这个
+```txt
+Press Ctrl/Cmd + C to exit.
+```
+你就可以开始输入代码了
+
 ## 语法
 
 ### 注释
@@ -55,16 +63,16 @@ Slash (\/) is a special character, so we need/n't/ to escape it with a backslash
 
 1. `keepResidue`可以把上一次运行结果中还没输出出来的字符先存起来, 等到下一次输出时再一起输出
 ```bash
-java -jar ./ssdot-java.jar --keepResidue
-java -jar ./ssdot-java.jar -kr
+java -jar ./ssdot-java.jar --keepResidue <other_args>
+java -jar ./ssdot-java.jar -kr <other_args>
 ```
 > [!TIP]
 > 下文, 若无特殊说明, 还没输出出来的字符就叫做residue
 
 2. `keepStatus`可以把上一次运行结果后的状态先存起来, 下一次运行时默认就是以这个状态开始运行
 ```bash
-java -jar ./ssdot-java.jar --keepStatus
-java -jar ./ssdot-java.jar -ks
+java -jar ./ssdot-java.jar --keepStatus <other_args>
+java -jar ./ssdot-java.jar -ks <other_args>
 ```
 
 以下是ssdot的状态表
@@ -88,18 +96,18 @@ Residue kept\. /
 ### trimEnd
 
 ```bash
-java -jar ./ssdot-java.jar --trimEnd
-java -jar ./ssdot-java.jar -te
+java -jar ./ssdot-java.jar --trimEnd <other_args>
+java -jar ./ssdot-java.jar -te <other_args>
 ```
 这个功能可以将输出结果末尾的所有空格去除掉
 
 ### verbose
 
 ```bash
-java -jar ./ssdot-java.jar --verbose
-java -jar ./ssdot-java.jar -vb
+java -jar ./ssdot-java.jar --verbose <other_args>
+java -jar ./ssdot-java.jar -vb <other_args>
 ```
-如果你不去启用这个功能, 输入的时机见下
+如果你不去启用这个功能, 输入的时机见上
 
 这个功能会在请求输入时额外弹出一个提示框
 
@@ -118,13 +126,73 @@ java -jar ./ssdot-java.jar -v
 ```
 显示版本号
 
-## 输入的时机
+## 配置文件
 
-只要出现这个
-```txt
-Press Ctrl/Cmd + C to exit.
+Ssdot会查看执行目录下的`.ssdotconf`文件, 他们的参数配置比命令行给的参数优先级高
+
+### 生成配置文件
+
+1. 根据传入的参数\(version除外\)
+
+```bash
+java -jar ./ssdot-java.jar genconf <other_args>
+java -jar ./ssdot-java.jar genconf:standard <other_args>
+java -jar ./ssdot-java.jar genconf:simple <other_args>
 ```
-你就可以开始输入代码了
+
+2. 自己编辑
+
+语法如下\(一行一个\)
+```txt
+<argument>:<arg_enable>
+```
+
+2001. `argument`
+
+`argument`可以填以下内容\(区分大小写, 同一项的两个效果一样\)
+- `keepResidue` `kr`
+- `keepStatus` `ks`
+- `trimEnd` `te`
+- `verbose` `vb`
+
+由于解析参数是惰性的, 所以`argument`理论上可以填任何东西.
+但填其他内容则不会生效, 例如`hello: world`.
+
+2002. `arg_enable`
+
+`arg_enable`本质上需要填写布尔值, 但填写下面任一字符都会被视为`true`, 否则`false`
+\(不区分大小写\)
+- true系: `true`, `t`
+- yes系: `yes`, `y`
+- please系: `please`, `plz`, `pls`
+- on系: `on`
+
+例如 `True`和`pLEaSE`也会被视为`true`.
+
+这也留了一个坑, 例如
+`absolutely`, `yes plz`都会被视为`false`, 所以要表示`true`最好用`true`或`t`.
+
+与此同时, 要表示`false`, 最好只用这些字符
+- false系: `false`, `f`
+- no系: `no`, `n`
+- off系: `off`
+
+如果你想让启动ssdot\(`java -jar ./ssdot-java.jar`\)时再决定这些参数,
+请留空该字段或者干脆删掉这一行得了
+
+2003. 语法示例
+
+- 标准
+```txt
+trimEnd: true
+verbose: false
+```
+
+- 简洁
+```txt
+te:t
+vb:f
+```
 
 ## 为什么用npm
 
